@@ -8,15 +8,23 @@ from init.Init import INIT
 from access_db import AccessDB
 
 
+def get_authors(path):
+    paths = glob.glob(path)
+    authors = []
+    for i in paths:
+        authors.append(i.split('/')[-1])
+    return authors
+
 
 def main():
     setPlace = 'setting.json'
     setting = INIT(setPlace)
 
-    print setting['root_place']
+    path = os.path.join(setting.pref['root_place'], '*')
+    authors = get_authors(path)
 
-    path = os.path.join(root, 'Manga', '*')
-    print(glob.glob(path))
+    for i in authors:
+        print i
 
 
 if __name__ == "__main__":
