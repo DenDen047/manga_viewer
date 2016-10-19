@@ -8,9 +8,10 @@ class AccessDB(object):
         self.connect = MySQLdb.connect(
             host='localhost',
             user="root",
-            db='h_manga',
+            db='h_files',
             charset='utf8')
         self.cursor = self.connect.cursor()
+        self.cursor.execute("SET NAMES utf8")
 
     def __call__(self, cmd):
         self.cursor.execute(cmd)

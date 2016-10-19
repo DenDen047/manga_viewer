@@ -22,11 +22,20 @@ def main():
     setting = INIT(setPlace)
     db = AccessDB()
 
+    db('DROP TABLE h_manga')
+    db('CREATE TABLE h_manga(author VARCHAR(255), title VARCHAR(255))')
+
     path = os.path.join(setting.pref['root_place'], '*')
     authors = get_dir_contents(path)
 
-    for i in authors:
-        print i
+    for a in authors:
+        path = os.path.join(setting.pref['root_place'], a, '*')
+        titles = get_dir_contents(path)
+        for t in titles:
+            cmd = u'INSERT INTO h_manga VALUES("{}", "{}")'.format(
+                a, t)
+            db(cmd)
+        db.commit()
 
     # end
     db.commit()
