@@ -12,6 +12,7 @@ from libraries.access_db import AccessDB
 setPlace = 'setting.json'
 setting = INIT(setPlace)
 db = AccessDB()
+books_per_page = int(setting.pref['books_per_page'])
 
 
 # 静的ファイルの読み込みに対する定義関数
@@ -20,23 +21,32 @@ def views_static(path):
     return static_file(path, root='/home/ubuntu/workspace/views')
 
 @route('/')
-@view('temp')
-def top():
-    return dict(
-        author='著者', title='タイトル', page_cnt='10', file_size='10', time='10/10/10:10', get_url=url)
-
-@route('/search/index/word\:<author:path>')
-@view('temp')
-def search(author):
-    author = author.decode('utf-8')
-    cmd = u'SELECT author, title FROM h_manga WHERE author="{}"'.format(author)
-    print(cmd)
+@route('/tops/index/term\:no/page\:<page:int>')
+@view('manga_list')
+def top(page=1):
+    cmd = 'SELECT author, title FROM h_manga ORDER BY RAND() LIMIT {}'.format(books_per_page)
     result = db(cmd)
     mangas = []
     for row in result:
         path = os.path.join(setting.pref['root_place'], row[0], row[1])
         mangas.append({'author': row[0], 'title': row[1], 'path': path})
-    return dict(mangas=mangas, get_url=url)
+    return dict(mangas=mangas, get_url=url, page=page, max_page=1)
+
+@route('/search/index/word\:<author:path>')
+@route('/search/index/word\:<author:path>/page\:<page:int>')
+@view('manga_list')
+def search(author, page=1):
+    author = author.decode('utf-8')
+    cmd = u'SELECT author, title FROM h_manga WHERE author="{}"'.format(author)
+    result = db(cmd)
+    mangas = []
+    count_manga = 0
+    for row in result:
+        path = os.path.join(setting.pref['root_place'], row[0], row[1])
+        mangas.append({'author': row[0], 'title': row[1], 'path': path})
+        count_manga += 1
+    max_page = count_manga / books_per_page + 1
+    return dict(mangas=mangas, get_url=url, page=page, max_page=max_page)
 
 
 
