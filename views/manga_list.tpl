@@ -149,7 +149,7 @@
 <div id="main2col">
 <div class="sortbox">
 <div class="sort_title">
-<div class="allfile"><span class="all-file">全てのファイル件数</span>385</div>
+<div class="allfile"><span class="all-file">全てのファイル件数</span>{{count_manga}}</div>
     <h2>ファイル一覧(1/8ページ)</h2>
 </div>
 <ul class="sort_list">
