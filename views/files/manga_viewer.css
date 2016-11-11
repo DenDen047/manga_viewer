@@ -1,0 +1,10 @@
+
+.page {
+    float:left;
+    margin-right: 1px;
+}
+
+.bg {
+    width: auto;
+    height: 100vh;
+}
