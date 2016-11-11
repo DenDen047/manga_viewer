@@ -303,11 +303,11 @@
 %     author = i['author']
 %     title = i['title']
     <div class="list" id="iUwI9GcbMe">
-        <a href="http://dropbooks.tv/detail/{{author}}:{{title}}" title="[{{author}}] {{title}}">
+        <a href="http://dropbooks.tv/detail/{{author}}:{{title}}" title="[{{author}}] {{title}}" target=”_blank”>
             <img src="{{get_url('views_static', path='./files/EYCirSrafm.jpg')}}" class="picborder mb5" alt="[{{author}}] {{title}}">
         </a>
         <h3 style="background-color: rgb(255, 204, 153);">
-            <a href="http://dropbooks.tv/detail/{{author}}:{{title}}" title="[{{author}}] {{title}}">[{{author}}] {{title}}</a>
+            <a href="http://dropbooks.tv/detail/{{author}}:{{title}}" title="[{{author}}] {{title}}" target=”_blank”>[{{author}}] {{title}}</a>
         </h3>
         <ul class="tag_list">
             <li class="user"><a href="/search/index/word:{{author}}">{{author}}</a></li>
